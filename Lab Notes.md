@@ -73,22 +73,21 @@ V_pp/V_out 3.1V/3.7V = 0.84
 ## Comment on the inductor waveforms and on how they changed with duty cycle, describing your observations by considering the theory of circuit operation
 
 ## Calculate the minimum switching frequency required to ensure continuous conduction is maintained for the whole range of circuit operation (duty cycles). How does this relate to your observations at the conditions you operated the circuit under?
-
 ## From your measured data, create a plot of dc output voltage versus duty cycle. Include on the same plot the theoretical curve for a Boost Converter and compare, discussing any differences between       measured and observed.
 
 # Buck-Boost Converter
 | Duty Cycle | Input Voltage | Input Current | Output Voltage | Output Current | Calculated Efficiency |
 |------------|---------------|---------------|----------------|----------------|-----------------------|
-|            |               |               |                |                |                       |
-|            |               |               |                |                |                       |
-|            |               |               |                |                |                       |
-|            |               |               |                |                |                       |
-|            |               |               |                |                |                       |
-|            |               |               |                |                |                       |
-|            |               |               |                |                |                       |
-|            |               |               |                |                |                       |
-|            |               |               |                |                |                       |
-|            |               |               |                |                |                       |
+| 0          | 10            | 0             | 0              | 75u            |                       |
+| 10         | 10            | 1m            | 0.6            | 6m             |                       |
+| 20         | 10            | 4m            | 1.4            | 14m            |                       |
+| 30         | 10            | 14m           | 2.9            | 29m            |                       |
+| 40         | 10            | 36m           | 4.5            | 46m            |                       |
+| 50         | 10            | 80m           | 7.3            | 74m            |                       |
+| 60         | 10            | 170m          | 10.5           | 106m           |                       |
+| 70         | 10            | 356m          | 14.4           | 145m           |                       |
+| 80         | 10            | 827m          | 19.0           | 191m           |                       |
+| 85         | 10            | 1.3           | 20.2           | 203m           |                       |
 |------------|---------------|---------------|----------------|----------------|-----------------------|
 
 ## Plot (using recorded oscilloscope data) or include image from oscilloscope showing inductor current and voltage, and output voltage and capacitor current waveforms at the 50% duty cycle initially       operated at.
