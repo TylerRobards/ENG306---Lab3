@@ -9,24 +9,31 @@ tags: []
 # Introduction
 
 # Buck Converter
+:NOTE: For "Part_2_Buck_50_D.png", the scope probe is on 10x, not 1x
 
-| Duty Cycle | Input Voltage | Input Current | Output Voltage | Output Current | Calculated Efficiency |
-|------------|---------------|---------------|----------------|----------------|-----------------------|
-|            |               |               |                |                |                       |
-|            |               |               |                |                |                       |
-|            |               |               |                |                |                       |
-|            |               |               |                |                |                       |
-|            |               |               |                |                |                       |
-|            |               |               |                |                |                       |
-|            |               |               |                |                |                       |
-|            |               |               |                |                |                       |
-|            |               |               |                |                |                       |
-|            |               |               |                |                |                       |
-|------------|---------------|---------------|----------------|----------------|-----------------------|
+| Duty Cycle | Input Voltage (V) | Input Current | Output Voltage | Output Current | Calculated Efficiency |
+|------------|-------------------|---------------|----------------|----------------|-----------------------|
+| 0          | 20                | 0             | 0              | 0.4u           | 0/0                   |
+| 10         | 20                | 3m            | 150m *10       | 14.8m          |                       |
+| 20         | 20                | 7m            | 330m *10       | 30m            |                       |
+| 30         | 20                | 15m           | 521m *10       | 48m            |                       |
+| 40         | 20                | 30m           | 700m *10       | 71m            |                       |
+| 50         | 20                | 48m           | 920m *10       | 92m            |                       |
+| 60         | 20                | 69m           | 1.2  *10       | 109m           |                       |
+| 70         | 20                | 94m           | 1.3  *10       | 133m           |                       |
+| 80         | 20                | 120m          | 1.5  *10       | 148m           |                       |
+| 85         | 20                | 137m          | 1.6  *10       | 158m           |                       |
+|------------|-------------------|---------------|----------------|----------------|-----------------------|
+
+### Voltage Ripple
+V_pp/V_out = 3.4V/3.7V = 0.92
+
+### 2 Inductors
+V_pp/V_out 3.1V/3.7V = 0.84
 
 ## Why are 1 ohm resistors placed in series with the capacitor and inductor in this circuit when it is constructed?
 
-## Explain why the oscilloscope probes alligator ground clips must all be at the same point in the circuit, and why the given location in the circuit was chosen?
+## Explain why the oscilloscope probes alligator ground clips must 1all be at the same point in the circuit, and why the given location in the circuit was chosen?
 
 ## Explain why the 1 ohm resistance in series with the capacitor is wired up on the other side of the capacitor for the constructed circuit?
 
@@ -47,19 +54,19 @@ tags: []
 ## Assuming you did not actually know the value of the inductor used in your Buck Converter circuit, devise a method for accurately calculating its value (for either single inductance case, or for two     placed either in series or parallel) from the observations and measurements. {Hint: consider the inductor current waveform carefully and take appropriate measurements}
 
 # Boost Converter
-| Duty Cycle | Input Voltage | Input Current | Output Voltage | Output Current | Calculated Efficiency |
-|------------|---------------|---------------|----------------|----------------|-----------------------|
-|            |               |               |                |                |                       |
-|            |               |               |                |                |                       |
-|            |               |               |                |                |                       |
-|            |               |               |                |                |                       |
-|            |               |               |                |                |                       |
-|            |               |               |                |                |                       |
-|            |               |               |                |                |                       |
-|            |               |               |                |                |                       |
-|            |               |               |                |                |                       |
-|            |               |               |                |                |                       |
-|------------|---------------|---------------|----------------|----------------|-----------------------|
+| Duty Cycle | Input Voltage (V) | Input Current | Output Voltage | Output Current | Calculated Efficiency |
+|------------|-------------------|---------------|----------------|----------------|-----------------------|
+| 0          | 10                | 87m           | 8.7            | 87m            |                       |
+| 10         | 10                | 111m          | 9.6            | 96m            |                       |
+| 20         | 10                | 140m          | 10.8           | 108m           |                       |
+| 30         | 10                | 167m          | 11.7           | 117m           |                       |
+| 40         | 10                | 233m          | 13.6           | 136m           |                       |
+| 50         | 10                | 325m          | 15.7           | 157m           |                       |
+| 60         | 10                | 438m          | 17.8           | 178m           |                       |
+| 70         | 10                | 773m          | 21.8           | 219m           |                       |
+| 80         | 10                | 1.26          | 24.6           | 247m           |                       |
+| 85         | 10                | 1.6           | 24.8           | 249m           |                       |
+|------------|-------------------|---------------|----------------|----------------|-----------------------|
 
 ## Plot (using recorded oscilloscope data) or include image from oscilloscope showing inductor current and voltage, and capacitor current waveforms at the duty cycle you chose to initially operate at      (40%,50% or 60%)
 
