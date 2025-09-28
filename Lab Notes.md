@@ -13,17 +13,16 @@ tags: []
 
 | Duty Cycle | Input Voltage (V) | Input Current | Output Voltage | Output Current | Calculated Efficiency |
 |------------|-------------------|---------------|----------------|----------------|-----------------------|
-| 0          | 20                | 0             | 0              | 0.4u           | 0/0                   |
-| 10         | 20                | 3m            | 150m *10       | 14.8m          |                       |
-| 20         | 20                | 7m            | 330m *10       | 30m            |                       |
-| 30         | 20                | 15m           | 521m *10       | 48m            |                       |
-| 40         | 20                | 30m           | 700m *10       | 71m            |                       |
-| 50         | 20                | 48m           | 920m *10       | 92m            |                       |
-| 60         | 20                | 69m           | 1.2  *10       | 109m           |                       |
-| 70         | 20                | 94m           | 1.3  *10       | 133m           |                       |
-| 80         | 20                | 120m          | 1.5  *10       | 148m           |                       |
-| 85         | 20                | 137m          | 1.6  *10       | 158m           |                       |
-|------------|-------------------|---------------|----------------|----------------|-----------------------|
+| 0          | 20                | 0             | 0              | 0.4u           | 0/0 = 0               |
+| 10         | 20                | 3m            | 1.5            | 14.8m          | 0.02/0.06 = 0.33      |
+| 20         | 20                | 7m            | 3.3            | 30m            | 0.10/0.14 = 0.71      |
+| 30         | 20                | 15m           | 5.21           | 48m            | 0.25/0.30 = 0.83      |
+| 40         | 20                | 30m           | 7              | 71m            | 0.50/0.60 = 0.83      |
+| 50         | 20                | 48m           | 9.2            | 92m            | 0.85/0.96 = 0.88      |
+| 60         | 20                | 69m           | 12             | 109m           | 1.31/1.38 = 0.95      |
+| 70         | 20                | 94m           | 13             | 133m           | 1.73/1.88 = 0.92      |
+| 80         | 20                | 120m          | 15             | 148m           | 2.22/2.40 = 0.93      |
+| 85         | 20                | 137m          | 16             | 158m           | 2.53/2.74 = 0.92      |
 
 ### Voltage Ripple
 V_pp/V_out = 3.4V/3.7V = 0.92
@@ -38,10 +37,10 @@ V_pp/V_out 3.1V/3.7V = 0.84
 Oscilloscope probes ground clips are all connected together, there is a direct connection from probe 1 ground to probe 2 ground and so on. This means that if they are not connected to the sample place then a short will occur, which will effect how the circuit will function. For this circuit it was chosen that ground probe to be placed at the same node that connects the inductor, capacitor and load as it would allow us to measure the inductor voltage, inductor current, output voltage and capacitor current on oscilloscope plot. 
 
 ## Explain why the 1 ohm resistance in series with the capacitor is wired up on the other side of the capacitor for the constructed circuit?
-:TODO: We didn't do this, ours was swapped the other way.
+The resistor should be closest to the common measurement point (oscilloscope ground clip). This is because the only the voltage over the 1 ohm resistor should be measured to display the current capacitor waveform. If the resistor was placed after the capacitor (the ground side), the measurement would be the capacitor voltage and the 1 ohm resistor voltage which is not equivalent to the capacitor current.
 
 ## Which channels were required to be inverted in order to display sensible / normal waveforms?
-:TODO:
+Channels 3 and 4 will need to be inverted to display positive waveforms. $V_o$ will be inverted as the positive and negative probes are inverted. $i_c$ is also inverted as the positive probe is at the negative side of the current sensing resistor.
 
 ## Plot (using recorded oscilloscope data) or include image from oscilloscope showing inductor current and voltage, output voltage and capacitor current waveforms at the duty cycle you chose to initially  operate at (40%, 50% or 60%)
 ![Oscilloscope plot. Ch1: inductor voltage, Ch2: inductor current, Ch3: output voltage and Ch4: capacitor current](./Part_2_Buck_50_D.png)
@@ -105,6 +104,7 @@ Comparing to the theoretical value:
 \frac{\Delta V_o}{V_o} &= 0.00148
 \end{align*}
 
+
 ## What did you observe when you altered your inductance value? How do the waveforms change? Comment on how it did or might impact the conditions for the boundary between continuous and discontinuous      conduction.
 
 ## Assuming you did not actually know the value of the inductor used in your Buck Converter circuit, devise a method for accurately calculating its value (for either single inductance case, or for two     placed either in series or parallel) from the observations and measurements. {Hint: consider the inductor current waveform carefully and take appropriate measurements}
@@ -122,7 +122,6 @@ Comparing to the theoretical value:
 | 70         | 10                | 773m          | 21.8           | 219m           |                       |
 | 80         | 10                | 1.26          | 24.6           | 247m           |                       |
 | 85         | 10                | 1.6           | 24.8           | 249m           |                       |
-|------------|-------------------|---------------|----------------|----------------|-----------------------|
 
 ## Plot (using recorded oscilloscope data) or include image from oscilloscope showing inductor current and voltage, and capacitor current waveforms at the duty cycle you chose to initially operate at      (40%,50% or 60%)
 
@@ -144,7 +143,6 @@ Comparing to the theoretical value:
 | 70         | 10            | 356m          | 14.4           | 145m           |                       |
 | 80         | 10            | 827m          | 19.0           | 191m           |                       |
 | 85         | 10            | 1.3           | 20.2           | 203m           |                       |
-|------------|---------------|---------------|----------------|----------------|-----------------------|
 
 ## Plot (using recorded oscilloscope data) or include image from oscilloscope showing inductor current and voltage, and output voltage and capacitor current waveforms at the 50% duty cycle initially       operated at.
 
