@@ -31,27 +31,80 @@ V_pp/V_out = 3.4V/3.7V = 0.92
 V_pp/V_out 3.1V/3.7V = 0.84
 
 ## Why are 1 ohm resistors placed in series with the capacitor and inductor in this circuit when it is constructed?
-This is to measure the current through the capacitor and inductor. Using a 1 ohm resistor means $I=V$, so the current waveforms can be displayed with the oscilloscope by measuring the voltage over the 1 ohm resistors. Using a 1 ohm resistors also limits resistive losses in the circuit.
+1 Ohm resistors were placed in series with the capacitor and inductor because it would allow the oscilloscope to measure the current. Using Ohms law it can be seen that $V = IR = I$ if the resistance is $1$, hence the voltage over the resistor is equal to the current. This allows us to place the oscilloscope probes over the resistor to measure the current.
+
 ## Explain why the oscilloscope probes alligator ground clips must all be at the same point in the circuit, and why the given location in the circuit was chosen?
-The oscilloscope ground clip must be common for all channels. This is because it will create short circuits as each ground clip is not electrically isolated. The probe is placed at the node after the inductor. This common point allows for the inductor voltage, inductor current, output voltage and capacitor current to be measured simultaneously.  
+Oscilloscope probes ground clips are all connected together, there is a direct connection from probe 1 ground to probe 2 ground and so on. This means that if they are not connected to the sample place then a short will occur, which will effect how the circuit will function. For this circuit it was chosen that ground probe to be placed at the same node that connects the inductor, capacitor and load as it would allow us to measure the inductor voltage, inductor current, output voltage and capacitor current on oscilloscope plot. 
+
 ## Explain why the 1 ohm resistance in series with the capacitor is wired up on the other side of the capacitor for the constructed circuit?
-The resistor should be closest to the common measurement point (oscilloscope ground clip). This is because the only the voltage over the 1 ohm resistor should be measured to display the current capacitor waveform. If the resistor was placed after the capacitor (the ground side), the measurement would be the capacitor voltage and the 1 ohm resistor voltage which is not equivalent to the capacitor current.   
+The resistor should be closest to the common measurement point (oscilloscope ground clip). This is because the only the voltage over the 1 ohm resistor should be measured to display the current capacitor waveform. If the resistor was placed after the capacitor (the ground side), the measurement would be the capacitor voltage and the 1 ohm resistor voltage which is not equivalent to the capacitor current.
+
 ## Which channels were required to be inverted in order to display sensible / normal waveforms?
-Channels 3 and 4 will need to be inverted to display positive waveforms. $V_o$ will be inverted as the positive and negative probes are inverted. $i_c$ is also inverted as the positive probe is at the negative side of the current sensing resistor. 
+Channels 3 and 4 will need to be inverted to display positive waveforms. $V_o$ will be inverted as the positive and negative probes are inverted. $i_c$ is also inverted as the positive probe is at the negative side of the current sensing resistor.
+
 ## Plot (using recorded oscilloscope data) or include image from oscilloscope showing inductor current and voltage, output voltage and capacitor current waveforms at the duty cycle you chose to initially  operate at (40%, 50% or 60%)
-#TODO
+![Oscilloscope plot. Ch1: inductor voltage, Ch2: inductor current, Ch3: output voltage and Ch4: capacitor current](./Part_2_Buck_50_D.png)
+
 ## Comment on the observed waveforms and on how they change when you vary duty cycle, describing your observations by considering theory of the circuit operation and taking particular care to note whether continuous conduction is always maintained
-#TODO
+The voltage accross the inductor followed the duty cycle, as the duty cycle was increased the amount of time the indcutor voltage was non-zero increased. This can be seen from the circuit diagram (maybe input figure of the buck converter + seen in Figure N), when the MOSFET is on the voltage across the inductor is equal to the input voltage, and when the MOSFET is off the inductor voltage is zero. As the duty cycle was varied the output voltage varied with it, increasing the duty cycle increased the output voltage and vice versa for decreasing the duty cycle. This can easily be seen to be correct by looking at the equation $V_o = DV_d$, the output voltage is directly proportional to the duty cycle. :TODO: Talk about continuous conduction
+
 ## Calculate the minimum switching frequency required to ensure continuous conduction is maintained when an output of about 4 V (20% duty cycle) is required. Compare with your observations.
-To calculate the minimum switching frequency for continuous conduction at a 20% duty cycle use the following formula and solve for $f_s$,
-$$L=\dfrac{D(1-D)^2R}{2f_s}$$
-$$f_s=2.133\:k\text{Hz}$$
-#TODO compare this with the plots 
+\begin{align*}
+L_{\min} &= \frac{(1-D)R}{2f_s} \\
+\Rightarrow f_s &= \frac{(1-D)R}{2L_{\min}} \\
+f_s &= \frac{(1-0.2)100}{2\cdot 3\times10^{-3}} \\
+f_s &= 13.3\ kHz
+\end{align*}
+:TODO: Compare with observations
+
 ## From your measured data, create a plot of dc output voltage versus duty cycle. Include on the same plot the theoretical curve for a Buck Converter. Discuss briefly.
-#TODO add plot "Part_2_Buck_d_vs_Vo.jpg" and discuss
+
+```octave 
+clc
+clear
+close all;
+
+if exist('OCTAVE_VERSION', 'builtin')
+  set(0, "DefaultLineLineWidth", 2);
+  set(0, "DefaultAxesFontSize", 25);
+  warning('off');
+end
+
+V_d = 20;
+
+D = [0, 10, 20, 30, 40, 50, 60, 70, 80, 85];
+V_out = [0, 150e-3*10, 330e-3*10, 521e-3*10, 700e-3*10, 920e-3*10, 1.2*10, 1.3*10, 1.5*10, 1.6*10];
+
+D_theo = 0:0.1:85;
+V_out_theo = V_d*D_theo/100;
+
+figure;
+hold on;
+plot(D, V_out);
+plot(D_theo, V_out_theo);
+
+legend("Measured", "Theoretical");
+xlabel("%Duty cycle")
+ylabel("Output Voltage (V)")
+title("Duty Cycle vs Output Voltage Buck Converter")
+
+#print -dpng 'ENG306_D_vs_Vout_Buck.png'
+```
+:TODO: Run code with print un-commented and add Figure
+A output voltage versus duty cycle plot can be seen in Figure :TODO:, it contains both measured and theoretical results. It can be seen that the measured plot closely follows the theory, there is a noticeable constant negative drop for the measured values which is mainly due to losses in the MOSFET and diode as the theory does not account for this.
+
 ## From your measurements of peak-to-peak output voltage at 20% duty cycle, calculate the % output voltage ripple and compare with theoretical calculations for your circuit if operated at the same duty    cycle.
-The peak to peak output voltage is $\Delta V_{0}=3.4V$. Using this to calculate the voltage ripple results in, $\dfrac{\Delta V_0}{V_0}=\dfrac{3.4\:\text{V}}{3.7\:\text{V}}=0.92$. To calculate the theoretical duty cycle use the equation $\dfrac{\Delta V_0}{V_0}=\dfrac{D}{RCf_s}$. This results in a output ripple of, $\dfrac{\Delta V_0}{V_0}=0.0013$
-#TODO i think this calc is wrong
+:TODO: Something is clearly wrong here
+The voltage ripple at 20% duty cycle was measured to be:
+\[\frac{V_{pp}}{V_{out}} = \frac{3.4V}{3.7V} = 0.92\]
+Comparing to the theoretical value:
+\begin{align*}
+\frac{\Delta V_o}{V_o} &= \frac{1}{8}\frac{T_s^2(1-D)}{LC} \\
+\frac{\Delta V_o}{V_o} &= \frac{1}{8}\frac{\left(15\times10^3\right)^2(1-0.2)}{3\times10^{-3}\cdot100\times10^{-6}}
+\frac{\Delta V_o}{V_o} &= 0.00148
+\end{align*}
+
+
 ## What did you observe when you altered your inductance value? How do the waveforms change? Comment on how it did or might impact the conditions for the boundary between continuous and discontinuous      conduction.
 
 ## Assuming you did not actually know the value of the inductor used in your Buck Converter circuit, devise a method for accurately calculating its value (for either single inductance case, or for two     placed either in series or parallel) from the observations and measurements. {Hint: consider the inductor current waveform carefully and take appropriate measurements}
