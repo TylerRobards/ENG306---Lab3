@@ -113,23 +113,100 @@ Comparing to the theoretical value:
 # Boost Converter
 | Duty Cycle | Input Voltage (V) | Input Current | Output Voltage | Output Current | Calculated Efficiency |
 |------------|-------------------|---------------|----------------|----------------|-----------------------|
-| 0          | 10                | 87m           | 8.7            | 87m            |                       |
-| 10         | 10                | 111m          | 9.6            | 96m            |                       |
-| 20         | 10                | 140m          | 10.8           | 108m           |                       |
-| 30         | 10                | 167m          | 11.7           | 117m           |                       |
-| 40         | 10                | 233m          | 13.6           | 136m           |                       |
-| 50         | 10                | 325m          | 15.7           | 157m           |                       |
-| 60         | 10                | 438m          | 17.8           | 178m           |                       |
-| 70         | 10                | 773m          | 21.8           | 219m           |                       |
-| 80         | 10                | 1.26          | 24.6           | 247m           |                       |
-| 85         | 10                | 1.6           | 24.8           | 249m           |                       |
+| 0          | 10                | 87m           | 8.7            | 87m            | 0.87                  |
+| 10         | 10                | 111m          | 9.6            | 96m            | 0.83                  |
+| 20         | 10                | 140m          | 10.8           | 108m           | 0.83                  |
+| 30         | 10                | 167m          | 11.7           | 117m           | 0.81                  |
+| 40         | 10                | 233m          | 13.6           | 136m           | 0.79                  |
+| 50         | 10                | 325m          | 15.7           | 157m           | 0.75                  |
+| 60         | 10                | 438m          | 17.8           | 178m           | 0.72                  |
+| 70         | 10                | 773m          | 21.8           | 219m           | 0.61                  |
+| 80         | 10                | 1.26          | 24.6           | 247m           | 0.48                  |
+| 85         | 10                | 1.6           | 24.8           | 249m           | 0.38                  |
 
-## Plot (using recorded oscilloscope data) or include image from oscilloscope showing inductor current and voltage, and capacitor current waveforms at the duty cycle you chose to initially operate at      (40%,50% or 60%)
+## Plot (using recorded oscilloscope data) or include image from oscilloscope showing inductor current and voltage, and capacitor current waveforms at the duty cycle you chose to initially operate at (40%,50% or 60%)
+![Capacitor current oscilloscope plot for boost converter](./Part_3_Boost_Cap_Current_50_D.PNG)
+![Inductor voltage (Ch1) and inductor current (Ch2) oscilloscope plot for boost converter](./Part_3_Boost_Inductor_D_50.PNG)
 
 ## Comment on the inductor waveforms and on how they changed with duty cycle, describing your observations by considering the theory of circuit operation
+The inductor waveform for the boost converter is the same as the one for the buck converter. Increasing the duty cycle changes the on time and off time for the inductor voltage and the width of the triangles in the inductor current. It can slightly be seen in Figure :TODO: that the inductor current exhibits the expected triangular waveform, although the magnitude is small. It appears that the inductor is discharging for positive inductor voltages, however this is due to measuring the negative of the current which means that it the inductor is storing energy for positive voltages and releasing it for negative voltages, this aligns with the theory.
 
 ## Calculate the minimum switching frequency required to ensure continuous conduction is maintained for the whole range of circuit operation (duty cycles). How does this relate to your observations at the conditions you operated the circuit under?
+Using the following equation the plot in Figure :TODO: can be made. It relates the duty cycle to minimum required frequency, we can then take the maximum value and that will be the minimum required frequency for all duty cycles. Looking at the plot it can be seen that the maximum is $2468.9\ Hz$.
+\begin{align*}
+f_s &= \frac{D(1 - D)^2R}{2L_min}
+f_s &= \frac{D(1 - D)^2100}{2\cdot3\times10^{-3}}
+\end{align*}
+```{octave}
+clc
+clear
+close all;
+
+if exist('OCTAVE_VERSION', 'builtin')
+  set(0, "DefaultLineLineWidth", 2);
+  set(0, "DefaultAxesFontSize", 25);
+  warning('off');
+end
+
+D = 0:0.01:1; % Define the range for D
+f_s = (D .* (1 - D).^2 .* 100) / (2 * 3e-3); % Calculate f_s
+
+% Find the maximum value and its index
+[max_value, max_index] = max(f_s);
+max_D = D(max_index);
+
+% Plot the function
+figure;
+plot(D, f_s, 'b-', 'LineWidth', 2); % Plot f_s
+hold on;
+
+% Highlight the maximum point
+plot(max_D, max_value, 'ro', 'MarkerSize', 10, 'MarkerFaceColor', 'r'); % Red circle at max
+text(max_D - 0.05, max_value - 50, sprintf(' Max: %.2f', max_value), 'VerticalAlignment', 'top', 'HorizontalAlignment', 'left', 'FontSize', 25);
+
+
+% Add labels and title
+xlabel('D');
+ylabel('f_s');
+title('Plot of f_s vs D');
+grid on;
+hold off;
+```
+
 ## From your measured data, create a plot of dc output voltage versus duty cycle. Include on the same plot the theoretical curve for a Boost Converter and compare, discussing any differences between       measured and observed.
+```{octave}
+clc
+clear
+close all;
+
+if exist('OCTAVE_VERSION', 'builtin')
+  set(0, "DefaultLineLineWidth", 2);
+  set(0, "DefaultAxesFontSize", 25);
+  warning('off');
+end
+
+V_d = 20;
+
+D = [0, 10, 20, 30, 40, 50, 60, 70, 80, 85];
+V_out = [8.7 9.6 10.8 11.7 13.6 15.7 17.8 21.8 24.6 24.8];
+
+D_theo = 0:0.1:85;
+V_out_theo = V_d./(1 - D_theo/100);
+
+figure;
+hold on;
+plot(D, V_out);
+plot(D_theo, V_out_theo);
+
+legend("Measured", "Theoretical");
+xlabel("%Duty cycle")
+ylabel("Output Voltage (V)")
+title("Duty Cycle vs Output Voltage Measured And Theoretical For Boost Converter")
+
+#print -dpng 'ENG306_D_vs_Vout_Boost.png'
+```
+:TODO: Include plot + caption
+
 
 # Buck-Boost Converter
 | Duty Cycle | Input Voltage | Input Current | Output Voltage | Output Current | Calculated Efficiency |
