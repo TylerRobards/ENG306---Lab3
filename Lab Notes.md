@@ -43,6 +43,7 @@ The resistor should be closest to the common measurement point (oscilloscope gro
 Channels 3 and 4 will need to be inverted to display positive waveforms. $V_o$ will be inverted as the positive and negative probes are inverted. $i_c$ is also inverted as the positive probe is at the negative side of the current sensing resistor.
 
 ## Plot (using recorded oscilloscope data) or include image from oscilloscope showing inductor current and voltage, output voltage and capacitor current waveforms at the duty cycle you chose to initially  operate at (40%, 50% or 60%)
+
 ![Oscilloscope plot. Ch1: inductor voltage, Ch2: inductor current, Ch3: output voltage and Ch4: capacitor current](./Part_2_Buck_50_D.png)
 
 ## Comment on the observed waveforms and on how they change when you vary duty cycle, describing your observations by considering theory of the circuit operation and taking particular care to note whether continuous conduction is always maintained
