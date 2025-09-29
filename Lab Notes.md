@@ -146,11 +146,18 @@ Comparing to the theoretical value:
 | 85         | 10            | 1.3           | 20.2           | 203m           |                       |
 
 ## Plot (using recorded oscilloscope data) or include image from oscilloscope showing inductor current and voltage, and output voltage and capacitor current waveforms at the 50% duty cycle initially       operated at.
+#TODO add figure labels
+![Inductor Current and Voltage](./Part_4_Buck_Boost_Inductor_V_and_I_50_D.PNG)
+
+![Output voltage and Capacitor Current](./Part_4_Buck_Boost_Vout_Icap_50_D.PNG)
 
 ## How does the output voltage compare to theoretical output at 50% duty cycle?
+The measured output voltage at 50% duty cycle is -7.3V. To calculate a theoretical value use the formula,
+$$V_0=V_d\dfrac{D}{1-D}=10V$$
 
 ## From your measured data, create a plot of dc output voltage versus duty cycle. Include on the same plot the theoretical curve for a Buck-Boost Converter and compare, discussing any differences between  measured and observed
-
+#TODO add the octave code to generate the plot. Its written in the matlab file "Buck_Boost_Vo.m"
+![DC Output Voltage vs Duty Cycle](./Part_4_Buck_Boost_V0.jpg)
 ## List all the sources of loss in the Buck-Boost converter, indicating whether you think they increase or decrease (and why) as duty cycle is varied? Relate this to your observed and calculated converter efficiency values.
 
 # Reflection
