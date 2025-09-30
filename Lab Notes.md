@@ -213,30 +213,46 @@ title("Duty Cycle vs Output Voltage Measured And Theoretical For Boost Converter
 # Buck-Boost Converter
 | Duty Cycle | Input Voltage | Input Current | Output Voltage | Output Current | Calculated Efficiency |
 |------------|---------------|---------------|----------------|----------------|-----------------------|
-| 0          | 10            | 0             | 0              | 75u            |                       |
-| 10         | 10            | 1m            | 0.6            | 6m             |                       |
-| 20         | 10            | 4m            | 1.4            | 14m            |                       |
-| 30         | 10            | 14m           | 2.9            | 29m            |                       |
-| 40         | 10            | 36m           | 4.5            | 46m            |                       |
-| 50         | 10            | 80m           | 7.3            | 74m            |                       |
-| 60         | 10            | 170m          | 10.5           | 106m           |                       |
-| 70         | 10            | 356m          | 14.4           | 145m           |                       |
-| 80         | 10            | 827m          | 19.0           | 191m           |                       |
-| 85         | 10            | 1.3           | 20.2           | 203m           |                       |
+| 0          | 10            | 0             | 0              | 75u            | 0/0=0                 |
+| 10         | 10            | 1m            | 0.6            | 6m             | 0.004/0.010 = 0.4     |
+| 20         | 10            | 4m            | 1.4            | 14m            | 0.020/0.004 = 0.5     |
+| 30         | 10            | 14m           | 2.9            | 29m            | 0.084/0.140 = 0.6     |
+| 40         | 10            | 36m           | 4.5            | 46m            | 0.207/0.360 = 0.58    |
+| 50         | 10            | 80m           | 7.3            | 74m            | 0.540/0.800 = 0.68    |
+| 60         | 10            | 170m          | 10.5           | 106m           | 1.113/1.700 = 0.65    |
+| 70         | 10            | 356m          | 14.4           | 145m           | 2.088/3.560 = 0.59    |
+| 80         | 10            | 827m          | 19.0           | 191m           | 3.629/8.270 = 0.44    |
+| 85         | 10            | 1.3           | 20.2           | 203m           | 4.101/13.00 = 0.32    |
 
 ## Plot (using recorded oscilloscope data) or include image from oscilloscope showing inductor current and voltage, and output voltage and capacitor current waveforms at the 50% duty cycle initially       operated at.
 #TODO add figure labels
-![Inductor Current and Voltage](./Part_4_Buck_Boost_Inductor_V_and_I_50_D.PNG)
+![Inductor Voltage and Current](./Part_4_Buck_Boost_Inductor_V_and_I_50_D.PNG)
 
 ![Output voltage and Capacitor Current](./Part_4_Buck_Boost_Vout_Icap_50_D.PNG)
 
 ## How does the output voltage compare to theoretical output at 50% duty cycle?
 The measured output voltage at 50% duty cycle is -7.3V. To calculate a theoretical value use the formula,
-$$V_0=V_d\dfrac{D}{1-D}=10V$$
+$$V_0=V_d\dfrac{D}{1-D}=-10V$$
+This error is likely caused by losses in the buck-boost converter. Sources of losses are discussed further in the later section. 
 
 ## From your measured data, create a plot of dc output voltage versus duty cycle. Include on the same plot the theoretical curve for a Buck-Boost Converter and compare, discussing any differences between  measured and observed
 #TODO add the octave code to generate the plot. Its written in the matlab file "Buck_Boost_Vo.m"
 ![DC Output Voltage vs Duty Cycle](./Part_4_Buck_Boost_V0.jpg)
+The plot of output voltage versus duty cycle (#TODO add figure refrence) shows noticeable difference between the theoretical curve and the measured value. While both curves follow the expected nonlinear trend of the buck-boost converter, the measured output is consistently lower than the theoretical curve across the full duty cycle range. This shows that whilst the theoretical curve correctly describes the relationship between duty cycle and output voltage, real converter operation is affected by component non-idealities and practical losses. Sources of potential circuit loss are further detailed in the section below (#TODO maybe add refrence to other section if we want to). This difference shows the importance of reviewing converter efficiency, as well as demonstrating issues in theoretical assumptions.
 ## List all the sources of loss in the Buck-Boost converter, indicating whether you think they increase or decrease (and why) as duty cycle is varied? Relate this to your observed and calculated converter efficiency values.
+1) Conduction Losses
+When the switch is on current flows through the MOSFET channel resistance $R_{DS(on)}$ causing $I^2R$ losses. At higher duty cycles the switch conducts for longer so the conduction losses increase.
+When the switch is off current flows through the diode and energy is lost across its forward voltage. As duty cycle increases and the switch is on for longer the diode conducts for less time, lowering the forward voltage losses.
+The inductor winding has resistance $R_L$ causing $I^2R$ losses proportional to the average inductor current. At low duty cycles (buck mode) current is higher for step-down so losses are higher. At high duty cycles (boost mode) current stress also increases so losses rise again. Losses are minimal around the crossover duty cycle.
+2) Switching Losses
+Energy is lost during voltage-current overlap when switching. Switching frequency remains constant with duty cycle but average inductor current changes with duty cycle. Higher duty cycle means higher inductor current, leading to higher switching losses.
+3) Inductor Core Losses
+Hysteresis and Eddy Currents are caused in the inductor core by alternating flux. Loss depends on the ripple currents. At medium duty cycles ripple is large so core losses are maximised. At extreme high/low duty cycles the ripple current is smaller so losses are minimised. 
+4) Capacitor ESR Losses
+Capacitor Equivalent Series Resistance (ESR) causes $I_{C,ripple}^2R$ heating. Ripple current depends on load and duty cycle. Near 50% duty cycle ripple is highest, so ESR losses increase.
+5) Parasitic Losses
+Parasitic inductance and capacitance in wiring cause extra minor switching losses. Not strongly duty cycle dependant but worsens under higher current stress at high/low duty cycles.
 
+Combining these sources of loss the theoretical highest efficiency duty cycle range should be around $D=0.4\leftrightarrow0.6$ where diode and switch conduction losses balance and ripple current is not too high. Comparing this theoretical efficiency to the measured efficiency provides similar results, with the peak efficiency from $D=0.3\leftrightarrow0.6$. Efficiency at extreme duty cycles are low as expected, due to high current stresses and other sources as mentioned previously.
+#TODO check this looks ok when it compiles to pdf
 # Reflection
