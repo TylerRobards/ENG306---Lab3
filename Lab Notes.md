@@ -257,4 +257,6 @@ Combining these sources of loss the theoretical highest efficiency duty cycle ra
 #TODO check this looks ok when it compiles to pdf
 
 # Reflection
+This lab task serves to emphasis key differences between DC-DC converter topologies. The buck converter stepping down voltage based on the MOSFET gate PWM signal duty cycle with high average efficiency, notably most efficient at higher duty cycles. The boost converter stepping up voltage again based on the MOSFET gate PWM signal duty cycle, with an average efficiency of 0.8%. The boost converter has high input current draw due to the relationship $P_{in}=P_{out}$. This means that for a constant input voltage, input current must increase when $P_{out}$ increases. The buck-boost converter performs both voltage step down and up dependent on the MOSFET gate PWM signal duty cycle, however overall efficiency is lower due to higher conduction losses from increased RMS currents. The buck-boost converter also causes inverted output voltage as the ground because the inductor is fixed to ground, causing the inductor to switch between input and ground, discharging into the capacitor with reversed polarity.
 
+Overall, this task was informative, highlighting major advantages and disadvantages with common DC-DC converter topologies.
