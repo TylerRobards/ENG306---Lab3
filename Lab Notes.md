@@ -47,7 +47,16 @@ Channels 3 and 4 will need to be inverted to display positive waveforms. $V_o$ w
 ![Buck converter oscilloscope plot with one inductor. Ch1: inductor voltage, Ch2: inductor current, Ch3: output voltage and Ch4: capacitor current](./Part_2_Buck_50_D.png)
 
 ## Comment on the observed waveforms and on how they change when you vary duty cycle, describing your observations by considering theory of the circuit operation and taking particular care to note whether continuous conduction is always maintained
-The voltage accross the inductor followed the duty cycle, as the duty cycle was increased the amount of time the indcutor voltage was non-zero increased. This can be seen from the circuit diagram (maybe input figure of the buck converter + seen in Figure N), when the MOSFET is on the voltage across the inductor is equal to the input voltage, and when the MOSFET is off the inductor voltage is zero. As the duty cycle was varied the output voltage varied with it, increasing the duty cycle increased the output voltage and vice versa for decreasing the duty cycle. This can easily be seen to be correct by looking at the equation $V_o = DV_d$, the output voltage is directly proportional to the duty cycle. :TODO: Talk about continuous conduction
+The voltage across the inductor followed the duty cycle, as the duty cycle was increased the amount of time the indcutor voltage was non-zero increased. This can be seen from the circuit diagram (maybe input figure of the buck converter + seen in Figure N), when the MOSFET is on the voltage across the inductor is equal to the input voltage, and when the MOSFET is off the inductor voltage is zero. As the duty cycle was varied the output voltage varied with it, increasing the duty cycle increased the output voltage and vice versa for decreasing the duty cycle. This can easily be seen to be correct by looking at the equation $V_o = DV_d$, the output voltage is directly proportional to the duty cycle. 
+
+To determine when the buck converter is CCM we can use the following calculation:
+\begin{align*}
+L_{\min} &= \frac{(1-D)R}{2f_s} \\
+\Rightarrow D &= 1 - \frac{2L_{\min}f_s}{R} \\
+D &= 1 - \frac{2\cdot3\times10^{-3}15\times10^{3}}{100} \\
+D &= 10\%
+\end{align*}
+This means that if the converter is operated below 10% duty cycle then it will be running in DCM.
 
 ## Calculate the minimum switching frequency required to ensure continuous conduction is maintained when an output of about 4 V (20% duty cycle) is required. Compare with your observations.
 For a 20% duty cycle the minimum required frequency can be calculated, as seen in the following.
@@ -95,7 +104,7 @@ title("Duty Cycle vs Output Voltage Buck Converter")
 A output voltage versus duty cycle plot can be seen in Figure :TODO:, it contains both measured and theoretical results. The theoretical plot was obtained by applying duty cycles ranging from 0% to 100% to the equation $V_o = V_dD$. It can be seen that the measured plot closely follows the theory, there is a noticeable constant negative drop for the measured values which is mainly due to losses in the MOSFET and diode as the theory does not account for this.
 
 ## From your measurements of peak-to-peak output voltage at 20% duty cycle, calculate the % output voltage ripple and compare with theoretical calculations for your circuit if operated at the same duty    cycle.
-:TODO: Something is clearly wrong here
+:TODO: Something is clearly wrong here. I think its because of the spikes when switching, the waves are supposed to be triangular, we did not zoom in enough to see this though.
 The voltage ripple at 20% duty cycle was measured to be:
 \[\frac{V_{pp}}{V_{out}} = \frac{3.4V}{3.7V} = 0.92\]
 Comparing to the theoretical value:
@@ -108,9 +117,19 @@ Comparing to the theoretical value:
 
 ## What did you observe when you altered your inductance value? How do the waveforms change? Comment on how it did or might impact the conditions for the boundary between continuous and discontinuous conduction.
 ![Buck converter oscilloscope plot with two inductors. Ch1: inductor voltage, Ch2: inductor current, Ch3: output voltage and Ch4: capacitor current](Part_2_Buck_50_D_2_inductor.PNG)
-When doubling the inductance it was noticed that :TODO:
+When doubling the inductance it was noticed that the inductor current slope is lower, this is because it takes longer for the energy to charge and discharge, this can slightly be seen in Figure :TODO:. The output voltage contains less ripple, the increased inductance allows a more constant current flow, reducing the ripple.
+
+The required duty cycle for the new inductance can be calculated, as seen in the following:
+\begin{align*}
+L_{\min} &= \frac{(1-D)R}{2f_s} \\
+\Rightarrow D &= 1 - \frac{2L_{\min}f_s}{R} \\
+D &= 1 - \frac{2\cdot6\times10^{-3}15\times10^{3}}{100} \\
+D &= -80\%
+\end{align*}
+The required duty cycle for DCM is negative meaning the buck converter will never reach DCM for a non-zero duty cycle.
 
 ## Assuming you did not actually know the value of the inductor used in your Buck Converter circuit, devise a method for accurately calculating its value (for either single inductance case, or for two     placed either in series or parallel) from the observations and measurements. {Hint: consider the inductor current waveform carefully and take appropriate measurements}
+:TODO:
 
 # Boost Converter
 | Duty Cycle | Input Voltage (V) | Input Current | Output Voltage | Output Current | Calculated Efficiency |
