@@ -7,6 +7,7 @@ tags: []
 # Lab 3: DC-DC Converters
 
 # Introduction
+This lab report outlines the experimental investigation of three distinct types of DC-DC converters, namely the buck converter, the boost converter, and the buck-boost converter. Throughout the lab, we explored the efficiency and performance of each topology. The buck converter lowers the input voltage while providing a higher output current. The boost converter elevates input voltage and is essential for applications needing higher voltage levels from a lower voltage supply. Finally, the buck-boost converter combines the features of both buck and boost converters, allowing for both voltage step-up and step-down operations. By conducting a series of measurements, including voltage ripples, efficiency at various operating points, and comparing theory with experimental results, we obtained a deeper understanding of how DC-DC converters work.
 
 # Buck Converter
 :NOTE: For "Part_2_Buck_50_D.png", the scope probe is on 10x, not 1x
