@@ -1,5 +1,5 @@
 #+title: ENG306 - Power Electronics - Lab 3
-#+AUTHOR: Baley Eccles - 652137
+#+AUTHOR: Baley Eccles - 652137 - Tyler Robards – 651790
 #+LATEX_HEADER: \usepackage[a4paper, margin=2cm]{geometry}
 #+LATEX_HEADER_EXTRA: \usepackage{minted}
 #+LATEX_HEADER_EXTRA: \usepackage{fontspec}
@@ -31,26 +31,19 @@ This lab report outlines the experimental investigation of three distinct types 
 |         85 |                20 | 137m          |             16 | 158m           |                  0.92 |
 |------------+-------------------+---------------+----------------+----------------+-----------------------|
 
-
-** Why are 1 ohm resistors placed in series with the capacitor and inductor in this circuit when it is constructed?
 1 Ohm resistors were placed in series with the capacitor and inductor because it would allow the oscilloscope to measure the current. Using Ohms law it can be seen that \(V = IR = I\) if the resistance is \(1\), hence the voltage over the resistor is equal to the current. This allows us to place the oscilloscope probes over the resistor to measure the current.
 
-** Explain why the oscilloscope probes alligator ground clips must all be at the same point in the circuit, and why the given location in the circuit was chosen?
 Oscilloscope probes ground clips are all connected together, there is a direct connection from probe 1 ground to probe 2 ground and so on. This means that if they are not connected to the sample place then a short will occur, which will effect how the circuit will function. For this circuit it was chosen that ground probe to be placed at the same node that connects the inductor, capacitor and load as it would allow us to measure the inductor voltage, inductor current, output voltage and capacitor current on oscilloscope plot.
 
-** Explain why the 1 ohm resistance in series with the capacitor is wired up on the other side of the capacitor for the constructed circuit?
-The resistor should be closest to the common measurement point (oscilloscope ground clip). This is because the only the voltage over the 1 ohm resistor should be measured to display the current capacitor waveform. If the resistor was placed after the capacitor (the ground side), the measurement would be the capacitor voltage and the 1 ohm resistor voltage which is not equivalent to the capacitor current.
+The 1 Ohm resistor should be closest to the common measurement point (oscilloscope ground clip). This is because the only the voltage over the 1 ohm resistor should be measured to display the current capacitor waveform. If the resistor was placed after the capacitor (the ground side), the measurement would be the capacitor voltage and the 1 ohm resistor voltage which is not equivalent to the capacitor current.
 
-** Which channels were required to be inverted in order to display sensible / normal waveforms?
 Channels 3 and 4 will need to be inverted to display positive waveforms. \(V_o\) will be inverted as the positive and negative probes are inverted. \(i_c\) is also inverted as the positive probe is at the negative side of the current sensing resistor.
 
-** Plot (using recorded oscilloscope data) or include image from oscilloscope showing inductor current and voltage, output voltage and capacitor current waveforms at the duty cycle you chose to initially operate at (40%, 50% or 60%)
 #+ATTR_LATEX: :placement [H]
-#+CAPTION: Buck converter oscilloscope plot with one inductor. Ch1: inductor voltage, Ch2: inductor current, Ch3: output voltage and Ch4: capacitor current \ref{fig:fig1}
+#+CAPTION: Buck converter oscilloscope plot with one inductor. Ch1: inductor voltage, Ch2: inductor current, Ch3: output voltage and Ch4: capacitor current \label{fig:fig1}
 [[./Part_2_Buck_50_D.png]]
 
-** Comment on the observed waveforms and on how they change when you vary duty cycle, describing your observations by considering theory of the circuit operation and taking particular care to note whether continuous conduction is always maintained
-Looking at Figure \ref{fig:fig1} t can be seen that the voltage across the inductor followed the duty cycle, as the duty cycle was increased the amount of time the indcutor voltage was non-zero increased. This can be seen from the circuit diagram, when the MOSFET is on the voltage across the inductor is equal to the input voltage, and when the MOSFET is off the inductor voltage is zero. As the duty cycle was varied the output voltage varied with it, increasing the duty cycle increased the output voltage and vice versa for decreasing the duty cycle. This can easily be seen to be correct by looking at the equation \(V_o = DV_d\), the output voltage is directly proportional to the duty cycle.
+Looking at Figure \ref{fig:fig1} it can be seen that the voltage across the inductor followed the duty cycle, as the duty cycle was increased the amount of time the indcutor voltage was non-zero increased. This can be seen from the circuit diagram, when the MOSFET is on the voltage across the inductor is equal to the input voltage, and when the MOSFET is off the inductor voltage is zero. As the duty cycle was varied the output voltage varied with it, increasing the duty cycle increased the output voltage and vice versa for decreasing the duty cycle. This can easily be seen to be correct by looking at the equation \(V_o = DV_d\), the output voltage is directly proportional to the duty cycle.
 
 To determine when the buck converter is CCM we can use the following calculation.
 \begin{align*}
@@ -61,7 +54,6 @@ D &= 10\%
 \end{align*}
 This means that if the converter is operated below 10% duty cycle then it will be running in DCM.
 
-** Calculate the minimum switching frequency required to ensure continuous conduction is maintained when an output of about 4 V (20% duty cycle) is required. Compare with your observations.
 For a 20% duty cycle the minimum required frequency can be calculated, as seen in the following.
 \begin{align*}
 L_{\min} &= \frac{(1-D)R}{2f_s} \\
@@ -71,11 +63,8 @@ f_s &= 13.3\ kHz
 \end{align*}
 The acquired frequency is \(13.3\ kHz\), which is close to the approximate frequency used of \(15\ kHz\), so it would be expected that the efficiency is particularly bad for some duty cycle close to 20% as the buck converter would enter DCM. It can be seen in Table \ref{tab:table1} that the efficiency is very low for a 10% duty cycle and moderately low for a 20% duty cycle, this means that the converter must have entered DCM at point between 10% and 20% duty cycle. ​
 
-** From your measured data, create a plot of dc output voltage versus duty cycle. Include on the same plot the theoretical curve for a Buck Converter. Discuss briefly.
-
-
 #+ATTR_LATEX: :placement [H]
-#+CAPTION: Theoretical and measured duty cycles compared \ref{fig:fig2}
+#+CAPTION: Theoretical and measured duty cycles compared \label{fig:fig2}
 [[./ENG306_D_vs_Vout_Buck.png]]
 
 An output voltage versus duty cycle plot can be seen in Figure \ref{fig:fig2} and the code that produced it can be seen in [[id:ENG306_Lab3_appendix-A][Appendix A]], it contains both measured and theoretical results. The theoretical plot was obtained by applying duty cycles ranging from 0% to 100% to the equation \(V_o = V_dD\). It can be seen that the measured plot closely follows the theory, there is a noticeable constant negative drop for the measured values which is mainly due to losses in the MOSFET and diode as the theory does not account for this.
@@ -91,10 +80,10 @@ cycle was measured to be: [\frac{V_{pp}}{V_{out}} = \frac{3.4V}{3.7V} =
 \frac{\Delta V_o}{V_o} &= \frac{1}{8}\frac{\left(15\times10^3\right)^2(1-0.2)}{3\times10^{-3}\cdot100\times10^{-6}} \\
 \frac{\Delta V_o}{V_o} &= 0.00148
 \end{align*}
-
-** What did you observe when you altered your inductance value? How do the waveforms change? Comment on how it did or might impact the conditions for the boundary between continuous and discontinuous conduction.
+:TODO: Above
+** Doubling Inductance
 #+ATTR_LATEX: :placement [H]
-#+CAPTION: Buck converter oscilloscope plot with two inductors in series. Ch1: inductor voltage, Ch2: inductor current, Ch3: output voltage and Ch4: capacitor current \ref{fig:fig3}
+#+CAPTION: Buck converter oscilloscope plot with two inductors in series. Ch1: inductor voltage, Ch2: inductor current, Ch3: output voltage and Ch4: capacitor current \label{fig:fig3}
 [[./Part_2_Buck_50_D_2_inductor.PNG]]
 
 When doubling the inductance it was noticed that the inductor current slope is lower, this is because it takes longer for the energy to charge and discharge, this can slightly be seen in Figure \ref{fig:fig3}. The output voltage contains less ripple, the increased inductance allows a more constant current flow, reducing the ripple.
@@ -129,28 +118,26 @@ The required duty cycle for DCM is negative meaning the buck converter will neve
 |         85 |                10 | 1.6           |           24.8 | 249m           |                  0.38 |
 |------------+-------------------+---------------+----------------+----------------+-----------------------|
 
-** Plot (using recorded oscilloscope data) or include image from oscilloscope showing inductor current and voltage, and capacitor current waveforms at the duty cycle you chose to initially operate at (40%,50% or 60%)
+
 #+ATTR_LATEX: :placement [H]
-#+CAPTION: Buck converter oscilloscope plot. Ch1: capacitor current \ref{fig:fig4}
+#+CAPTION: Buck converter oscilloscope plot. Ch1: capacitor current \label{fig:fig4}
 [[./Part_3_Boost_Cap_Current_50_D.PNG]]
 
 #+ATTR_LATEX: :placement [H]
-#+CAPTION: Boost converter oscilloscope plot. Ch1: inductor voltage, Ch2: inductor current \ref{fig:fig5}
+#+CAPTION: Boost converter oscilloscope plot. Ch1: inductor voltage, Ch2: inductor current \label{fig:fig5}
 [[./Part_3_Boost_Inductor_D_50.PNG]]
 
-** Comment on the inductor waveforms and on how they changed with duty cycle, describing your observations by considering the theory of circuit operation
+
 The inductor waveform for the boost converter is the same as the one for the buck converter. Increasing the duty cycle changes the on time and off time for the inductor voltage and the width of the triangles in the inductor current. It can slightly be seen in Figure \ref{fig:fig5} that the inductor current exhibits the expected triangular waveform, although the magnitude is small. It appears that the inductor is discharging for positive inductor voltages, however this is due to measuring the negative of the current which means that it the inductor is storing energy for positive voltages and releasing it for negative voltages, this aligns with the theory.
 
-** Calculate the minimum switching frequency required to ensure continuous conduction is maintained for the whole range of circuit operation (duty cycles). How does this relate to your observations at the conditions you operated the circuit under?
 Using the following equation the plot in Figure \ref{fig:fig6} can be made, the code that produced it can be seen in [[id:ENG306_Lab3_appendix-B][Appendix B]]. It relates the duty cycle to minimum required frequency, we can then take the maximum value and that will be the minimum required frequency for all duty cycles. Looking at the plot it can be seen that the maximum is \(2468.9\ Hz\).
 \begin{align*}
 f_s &= \frac{D(1 - D)^2R}{2L_{\min}} \\
 f_s &= \frac{D(1 - D)^2100}{2\cdot3\times10^{-3}}
 \end{align*}
 
-
 #+ATTR_LATEX: :placement [H]
-#+CAPTION: Boost converter switching frequency compared with duty cycle \ref{fig:fig6}
+#+CAPTION: Boost converter switching frequency compared with duty cycle \label{fig:fig6}
 [[./ENG306_Frequency.png]]
 
 * Buck-Boost Converter
@@ -170,35 +157,31 @@ f_s &= \frac{D(1 - D)^2100}{2\cdot3\times10^{-3}}
 |         80 |            10 | 827m          |           19.0 | 191m           |                  0.44 |
 |         85 |            10 | 1.3           |           20.2 | 203m           |                  0.32 |
 |------------+---------------+---------------+----------------+----------------+-----------------------|
-** Plot (using recorded oscilloscope data) or include image from oscilloscope showing inductor current and voltage, and output voltage and capacitor current waveforms at the 50% duty cycle initially operated at.
+
 #+ATTR_LATEX: :placement [H]
-#+CAPTION: Buck-boost converter oscilloscope plot. Ch1: inductor voltage, Ch2: inductor current \ref{fig:fig7}
+#+CAPTION: Buck-boost converter oscilloscope plot. Ch1: inductor voltage, Ch2: inductor current \label{fig:fig7}
 [[./Part_4_Buck_Boost_Inductor_V_and_I_50_D.PNG]]
 
 #+ATTR_LATEX: :placement [H]
-#+CAPTION: Buck-boost converter oscilloscope plot. Ch3: output voltage, Ch4: inductor current \ref{fig:fig8}
+#+CAPTION: Buck-boost converter oscilloscope plot. Ch3: output voltage, Ch4: inductor current \label{fig:fig8}
 [[./Part_4_Buck_Boost_Vout_Icap_50_D.PNG]]
 
-** How does the output voltage compare to theoretical output at 50% duty cycle?
-The measured output voltage at 50% duty cycle is -7.3V. To calculate a theoretical value use the formula, \(V_0=V_d\dfrac{D}{1-D}=-10V\) This error is likely caused by losses in the buck-boost converter. Sources of losses are discussed further in the later section.
-
-** From your measured data, create a plot of dc output voltage versus duty cycle. Include on the same plot the theoretical curve for a Buck-Boost Converter and compare, discussing any differences between measured and observed
-
+The measured output voltage at 50% duty cycle is -7.3V. To calculate a theoretical value use the formula, \(V_0=V_d\dfrac{D}{1-D}=-10V\). This error is likely caused by losses in the buck-boost converter. Sources of losses are discussed further in the later section.
 
 #+ATTR_LATEX: :placement [H]
-#+CAPTION: Measured output voltage compared to theoretical output voltage versus duty cycle \ref{fig:fig9}
+#+CAPTION: Measured output voltage compared to theoretical output voltage versus duty cycle \label{fig:fig9}
 [[./Part_4_Buck_Boost_V0.png]]
 
 The plot of output voltage versus duty cycle, as seen in Figure \ref{fig:fig9} produced by the code in [[id:ENG306_Lab3_appendix-C][Appendix C]], shows noticeable difference between the theoretical curve and the measured value. While both curves follow the expected nonlinear trend of the buck-boost converter, the measured output is consistently lower than the theoretical curve across the full duty cycle range. This shows that whilst the theoretical curve correctly describes the relationship between duty cycle and output voltage, real converter operation is affected by component non-ideality and practical losses. Sources of potential circuit loss are further detailed in the section below. This difference shows the importance of reviewing converter efficiency, as well as demonstrating issues in theoretical assumptions.
 
-** List all the sources of loss in the Buck-Boost converter, indicating whether you think they increase or decrease (and why) as duty cycle is varied? Relate this to your observed and calculated converter efficiency values.
+** Buck-Boost Losses
 1) Conduction Losses When the switch is on current flows through the MOSFET channel resistance \(R_{DS(on)}\) causing \(I^2R\) losses. At higher duty cycles the switch conducts for longer so the conduction losses increase. When the switch is off current flows through the diode and energy is lost across its forward voltage. As duty cycle increases and the switch is on for longer the diode conducts for less time, lowering the forward voltage losses. The inductor winding has resistance \(R_L\) causing \(I^2R\) losses proportional to the average inductor current. At low duty cycles (buck mode) current is higher for step-down so losses are higher. At high duty cycles (boost mode) current stress also increases so losses rise again. Losses are minimal around the crossover duty cycle.
 2) Switching Losses Energy is lost during voltage-current overlap when switching. Switching frequency remains constant with duty cycle but average inductor current changes with duty cycle. Higher duty cycle means higher inductor current, leading to higher switching losses.
 3) Inductor Core Losses Hysteresis and Eddy Currents are caused in the inductor core by alternating flux. Loss depends on the ripple currents. At medium duty cycles ripple is large so core losses are maximised. At extreme high/low duty cycles the ripple current is smaller so losses are minimised.
 4) Capacitor ESR Losses Capacitor Equivalent Series Resistance (ESR) causes \(I_{C,ripple}^2R\) heating. Ripple current depends on load and duty cycle. Near 50% duty cycle ripple is highest, so ESR losses increase.
 5) Parasitic Losses Parasitic inductance and capacitance in wiring cause extra minor switching losses. Not strongly duty cycle dependant but worsens under higher current stress at high/low duty cycles.
 
-Combining these sources of loss the theoretical highest efficiency duty cycle range should be around \(D=0.4\leftrightarrow0.6\) where diode and switch conduction losses balance and ripple current is not too high. Comparing this theoretical efficiency to the measured efficiency provides similar results, with the peak efficiency from \(D=0.3\leftrightarrow0.6\). Efficiency at extreme duty cycles are low as expected, due to high current stresses and other sources as mentioned previously. #TODO check this looks ok when it compiles to pdf
+Combining these sources of loss the theoretical highest efficiency duty cycle range should be around \(D=0.4\leftrightarrow0.6\) where diode and switch conduction losses balance and ripple current is not too high. Comparing this theoretical efficiency to the measured efficiency provides similar results, with the peak efficiency from \(D=0.3\leftrightarrow0.6\). Efficiency at extreme duty cycles are low as expected, due to high current stresses and other sources as mentioned previously.
 
 * Reflection
 This lab task serves to emphasis key differences between DC-DC converter topologies. The buck converter stepping down voltage based on the MOSFET gate PWM signal duty cycle with high average efficiency, notably most efficient at higher duty cycles. The boost converter stepping up voltage again based on the MOSFET gate PWM signal duty cycle, with an average efficiency of 0.8%. The boost converter has high input current draw due to the relationship \(P_{in}=P_{out}\). This means that for a constant input voltage, input current must increase when \(P_{out}\) increases. The buck-boost converter performs both voltage step down and up dependent on the MOSFET gate PWM signal duty cycle, however overall efficiency is lower due to higher conduction losses from increased RMS currents. The buck-boost converter also causes inverted output voltage as the ground because the inductor is fixed to ground, causing the inductor to switch between input and ground, discharging into the capacitor with reversed polarity.
