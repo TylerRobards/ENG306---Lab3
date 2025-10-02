@@ -16,20 +16,21 @@ This lab report outlines the experimental investigation of three distinct types 
 * Buck Converter
 #+ATTR_LATEX: :placement [H] :align |c|c|c|c|c|c|
 #+CAPTION: Data collected from buck converter \label{tab:table1}
-|------------+-------------------+---------------+----------------+----------------+-----------------------|
-| Duty Cycle | Input Voltage (V) | Input Current | Output Voltage | Output Current | Calculated Efficiency |
-|------------+-------------------+---------------+----------------+----------------+-----------------------|
-|          0 |                20 | 0             |              0 | 0.4u           |                     0 |
-|         10 |                20 | 3m            |            1.5 | 14.8m          |                  0.33 |
-|         20 |                20 | 7m            |            3.3 | 30m            |                  0.71 |
-|         30 |                20 | 15m           |           5.21 | 48m            |                  0.83 |
-|         40 |                20 | 30m           |              7 | 71m            |                  0.83 |
-|         50 |                20 | 48m           |            9.2 | 92m            |                  0.88 |
-|         60 |                20 | 69m           |             12 | 109m           |                  0.95 |
-|         70 |                20 | 94m           |             13 | 133m           |                  0.92 |
-|         80 |                20 | 120m          |             15 | 148m           |                  0.93 |
-|         85 |                20 | 137m          |             16 | 158m           |                  0.92 |
-|------------+-------------------+---------------+----------------+----------------+-----------------------|
+|-----------+-------------+--------------+-------------+--------------+----------------|
+|      Duty |       Input |        Input |      Output |       Output |     Calculated |
+| Cycle (%) | Voltage (V) | Current (mA) | Voltage (V) | Current (mA) | Efficiency (%) |
+|-----------+-------------+--------------+-------------+--------------+----------------|
+|         0 |          20 |            0 |           0 |       0.0004 |              0 |
+|        10 |          20 |            3 |         1.5 |           15 |             33 |
+|        20 |          20 |            7 |         3.4 |           30 |             71 |
+|        30 |          20 |           15 |         5.2 |           48 |             83 |
+|        40 |          20 |           30 |         7.0 |           71 |             83 |
+|        50 |          20 |           48 |         9.2 |           92 |             88 |
+|        60 |          20 |           69 |        12.0 |          109 |             95 |
+|        70 |          20 |           94 |        13.0 |          133 |             92 |
+|        80 |          20 |          120 |        15.0 |          148 |             93 |
+|        85 |          20 |          137 |        16.0 |          158 |             92 |
+|-----------+-------------+--------------+-------------+--------------+----------------|
 
 1 Ohm resistors were placed in series with the capacitor and inductor because it would allow the oscilloscope to measure the current. Using Ohms law it can be seen that \(V = IR = I\) if the resistance is \(1\), hence the voltage over the resistor is equal to the current. This allows us to place the oscilloscope probes over the resistor to measure the current.
 
@@ -43,7 +44,7 @@ Channels 3 and 4 will need to be inverted to display positive waveforms. \(V_o\)
 #+CAPTION: Buck converter oscilloscope plot with one inductor. Ch1: inductor voltage, Ch2: inductor current, Ch3: output voltage and Ch4: capacitor current \label{fig:fig1}
 [[./Part_2_Buck_50_D.png]]
 
-Looking at Figure \ref{fig:fig1} it can be seen that the voltage across the inductor followed the duty cycle, as the duty cycle was increased the amount of time the indcutor voltage was non-zero increased. This can be seen from the circuit diagram, when the MOSFET is on the voltage across the inductor is equal to the input voltage, and when the MOSFET is off the inductor voltage is zero. As the duty cycle was varied the output voltage varied with it, increasing the duty cycle increased the output voltage and vice versa for decreasing the duty cycle. This can easily be seen to be correct by looking at the equation \(V_o = DV_d\), the output voltage is directly proportional to the duty cycle.
+Looking at Figure \ref{fig:fig1} it can be seen that the voltage across the inductor varied with the duty cycle, as the duty cycle was increased the amount of time the inductor voltage was non-zero increased, this can be seen from the circuit diagram. When the MOSFET is on the voltage across the inductor is equal to the input voltage, and when the MOSFET is off the inductor voltage is zero. As the duty cycle was varied the output voltage varied with it, increasing the duty cycle increased the output voltage and vice versa for decreasing the duty cycle. This can easily be seen to be correct by looking at the equation \(V_o = DV_d\), the output voltage is directly proportional to the duty cycle.
 
 To determine when the buck converter is CCM we can use the following calculation.
 \begin{align*}
@@ -52,7 +53,7 @@ L_{\min} &= \frac{(1-D)R}{2f_s} \\
 D &= 1 - \frac{2\cdot3\times10^{-3}15\times10^{3}}{100} \\
 D &= 10\%
 \end{align*}
-This means that if the converter is operated below 10% duty cycle then it will be running in DCM.
+This indicates that operating the converter below 10% duty cycle then it will be running in DCM.
 
 For a 20% duty cycle the minimum required frequency can be calculated, as seen in the following.
 \begin{align*}
@@ -69,24 +70,25 @@ The acquired frequency is \(13.3\ kHz\), which is close to the approximate frequ
 
 An output voltage versus duty cycle plot can be seen in Figure \ref{fig:fig2} and the code that produced it can be seen in [[id:ENG306_Lab3_appendix-A][Appendix A]], it contains both measured and theoretical results. The theoretical plot was obtained by applying duty cycles ranging from 0% to 100% to the equation \(V_o = V_dD\). It can be seen that the measured plot closely follows the theory, there is a noticeable constant negative drop for the measured values which is mainly due to losses in the MOSFET and diode as the theory does not account for this.
 
-** From your measurements of peak-to-peak output voltage at 20% duty cycle, calculate the % output voltage ripple and compare with theoretical calculations for your circuit if operated at the same duty cycle.
-:TODO: Something is clearly wrong here. I think its because of the
-spikes when switching, the waves are supposed to be triangular, we did
-not zoom in enough to see this though. The voltage ripple at 20% duty
-cycle was measured to be: [\frac{V_{pp}}{V_{out}} = \frac{3.4V}{3.7V} =
-0.92] Comparing to the theoretical value:
+The voltage ripple at 20% duty cycle was measured to be: $\frac{\Delta V_o}{V_o} = \frac{3.4V}{3.7V} = 0.92$. Lets compare this to the theoretical value.
 \begin{align*}
 \frac{\Delta V_o}{V_o} &= \frac{1}{8}\frac{T_s^2(1-D)}{LC} \\
 \frac{\Delta V_o}{V_o} &= \frac{1}{8}\frac{\left(15\times10^3\right)^2(1-0.2)}{3\times10^{-3}\cdot100\times10^{-6}} \\
 \frac{\Delta V_o}{V_o} &= 0.00148
 \end{align*}
-:TODO: Above
+This is obviously wrong, the value obtained is close to three orders of magnitude off. This is because of incorrect measurement during the lab, more specifically the change in output voltage ($\Delta V_o$) is wrong. The oscilloscope should have been zoomed in so the triangular shape could be seen easier and the change in output voltage should have been manually recorded. However, a theoretical $\Delta V_o$ can be calculated using the same equation, as seen in the following equation.
+\begin{align*}
+\Delta V_o &= \frac{V_o}{8}\frac{T_s^2(1-D)}{LC} \\
+\Delta V_o &= \frac{3.4}{8}\frac{\left(15\times10^3\right)^2(1-0.2)}{3\times10^{-3}\cdot100\times10^{-6}} \\
+\Delta V_o &= 0.005\ V
+\end{align*}
+This value is much more reasonable, giving us a voltage ripple of $\frac{\Delta V_o}{V_o} = \frac{0.005}{3.7} = 0.00135$y
 ** Doubling Inductance
 #+ATTR_LATEX: :placement [H]
 #+CAPTION: Buck converter oscilloscope plot with two inductors in series. Ch1: inductor voltage, Ch2: inductor current, Ch3: output voltage and Ch4: capacitor current \label{fig:fig3}
 [[./Part_2_Buck_50_D_2_inductor.PNG]]
 
-When doubling the inductance it was noticed that the inductor current slope is lower, this is because it takes longer for the energy to charge and discharge, this can slightly be seen in Figure \ref{fig:fig3}. The output voltage contains less ripple, the increased inductance allows a more constant current flow, reducing the ripple.
+looking at Figure \ref{fig:fig3} it can be seen that doubling the inductance the inductor current slope is lower, this is because it takes longer for the energy to charge and discharge, this can slightly be seen in Figure \ref{fig:fig3}. The output voltage contains less ripple, the increased inductance allows a more constant current flow, reducing the ripple.
 
 The required duty cycle for the new inductance can be calculated, as seen in the following.
 \begin{align*}
@@ -97,26 +99,27 @@ D &= -80\%
 \end{align*}
 The required duty cycle for DCM is negative meaning the buck converter will never reach DCM for a non-zero duty cycle.
 
-** Assuming you did not actually know the value of the inductor used in your Buck Converter circuit, devise a method for accurately calculating its value (for either single inductance case, or for two placed either in series or parallel) from the observations and measurements. {Hint: consider the inductor current waveform carefully and take appropriate measurements}
-:TODO:
+If it was not known what the inductance was it would be possible to calculate it by measuring the change in inductor current ($\Delta i_L$), the output voltage ($V_o$), the duty cycle ($D$) and the switching frequency ($f_s$). Knowing these values it can simply be put into the following equation and solving for $L$.
+\[\Delta i_L = \frac{V_o}{Lf_s}(1 - D)\]
 
 * Boost Converter
 #+ATTR_LATEX: :placement [H] :align |c|c|c|c|c|c|
 #+CAPTION: Data collected from boost converter \label{tab:table2}
-|------------+-------------------+---------------+----------------+----------------+-----------------------|
-| Duty Cycle | Input Voltage (V) | Input Current | Output Voltage | Output Current | Calculated Efficiency |
-|------------+-------------------+---------------+----------------+----------------+-----------------------|
-|          0 |                10 | 87m           |            8.7 | 87m            |                  0.87 |
-|         10 |                10 | 111m          |            9.6 | 96m            |                  0.83 |
-|         20 |                10 | 140m          |           10.8 | 108m           |                  0.83 |
-|         30 |                10 | 167m          |           11.7 | 117m           |                  0.81 |
-|         40 |                10 | 233m          |           13.6 | 136m           |                  0.79 |
-|         50 |                10 | 325m          |           15.7 | 157m           |                  0.75 |
-|         60 |                10 | 438m          |           17.8 | 178m           |                  0.72 |
-|         70 |                10 | 773m          |           21.8 | 219m           |                  0.61 |
-|         80 |                10 | 1.26          |           24.6 | 247m           |                  0.48 |
-|         85 |                10 | 1.6           |           24.8 | 249m           |                  0.38 |
-|------------+-------------------+---------------+----------------+----------------+-----------------------|
+|-----------+-------------+--------------+-------------+--------------+----------------|
+|      Duty |       Input |        Input |      Output |       Output |     Calculated |
+| Cycle (%) | Voltage (V) | Current (mA) | Voltage (V) | Current (mA) | Efficiency (%) |
+|-----------+-------------+--------------+-------------+--------------+----------------|
+|         0 |          10 |           87 |         8.7 |           87 |             87 |
+|        10 |          10 |          111 |         9.6 |           96 |             83 |
+|        20 |          10 |          140 |        10.8 |          108 |             83 |
+|        30 |          10 |          167 |        11.7 |          117 |             81 |
+|        40 |          10 |          233 |        13.6 |          136 |             79 |
+|        50 |          10 |          325 |        15.7 |          157 |             75 |
+|        60 |          10 |          438 |        17.8 |          178 |             72 |
+|        70 |          10 |          773 |        21.8 |          219 |             61 |
+|        80 |          10 |         1260 |        24.6 |          247 |             48 |
+|        85 |          10 |         1600 |        24.8 |          249 |             38 |
+|-----------+-------------+--------------+-------------+--------------+----------------|
 
 
 #+ATTR_LATEX: :placement [H]
@@ -126,7 +129,6 @@ The required duty cycle for DCM is negative meaning the buck converter will neve
 #+ATTR_LATEX: :placement [H]
 #+CAPTION: Boost converter oscilloscope plot. Ch1: inductor voltage, Ch2: inductor current \label{fig:fig5}
 [[./Part_3_Boost_Inductor_D_50.PNG]]
-
 
 The inductor waveform for the boost converter is the same as the one for the buck converter. Increasing the duty cycle changes the on time and off time for the inductor voltage and the width of the triangles in the inductor current. It can slightly be seen in Figure \ref{fig:fig5} that the inductor current exhibits the expected triangular waveform, although the magnitude is small. It appears that the inductor is discharging for positive inductor voltages, however this is due to measuring the negative of the current which means that it the inductor is storing energy for positive voltages and releasing it for negative voltages, this aligns with the theory.
 
@@ -143,20 +145,21 @@ f_s &= \frac{D(1 - D)^2100}{2\cdot3\times10^{-3}}
 * Buck-Boost Converter
 #+ATTR_LATEX: :placement [H] :align |c|c|c|c|c|c|
 #+CAPTION: Data collected from buck-boost converter \label{tab:table3}
-|------------+---------------+---------------+----------------+----------------+-----------------------|
-| Duty Cycle | Input Voltage | Input Current | Output Voltage | Output Current | Calculated Efficiency |
-|------------+---------------+---------------+----------------+----------------+-----------------------|
-|          0 |            10 | 0             |              0 | 75u            |                     0 |
-|         10 |            10 | 1m            |            0.6 | 6m             |                   0.4 |
-|         20 |            10 | 4m            |            1.4 | 14m            |                   0.5 |
-|         30 |            10 | 14m           |            2.9 | 29m            |                   0.6 |
-|         40 |            10 | 36m           |            4.5 | 46m            |                  0.58 |
-|         50 |            10 | 80m           |            7.3 | 74m            |                  0.68 |
-|         60 |            10 | 170m          |           10.5 | 106m           |                  0.65 |
-|         70 |            10 | 356m          |           14.4 | 145m           |                  0.59 |
-|         80 |            10 | 827m          |           19.0 | 191m           |                  0.44 |
-|         85 |            10 | 1.3           |           20.2 | 203m           |                  0.32 |
-|------------+---------------+---------------+----------------+----------------+-----------------------|
+|-----------+-------------+--------------+-------------+--------------+----------------|
+|      Duty |       Input |        Input |      Output |       Output |     Calculated |
+| Cycle (%) | Voltage (V) | Current (mA) | Voltage (V) | Current (mA) | Efficiency (%) |
+|-----------+-------------+--------------+-------------+--------------+----------------|
+|         0 |          10 |            0 |           0 |        0.075 |              0 |
+|        10 |          10 |            1 |         0.6 |            6 |             40 |
+|        20 |          10 |            4 |         1.4 |           14 |             50 |
+|        30 |          10 |           14 |         2.9 |           29 |             60 |
+|        40 |          10 |           36 |         4.5 |           46 |             58 |
+|        50 |          10 |           80 |         7.3 |           74 |             68 |
+|        60 |          10 |          170 |        10.5 |          106 |             65 |
+|        70 |          10 |          356 |        14.4 |          145 |             59 |
+|        80 |          10 |          827 |        19.0 |          191 |             44 |
+|        85 |          10 |         1300 |        20.2 |          203 |             32 |
+|-----------+-------------+--------------+-------------+--------------+----------------|
 
 #+ATTR_LATEX: :placement [H]
 #+CAPTION: Buck-boost converter oscilloscope plot. Ch1: inductor voltage, Ch2: inductor current \label{fig:fig7}
