@@ -70,6 +70,7 @@ The acquired frequency is \(13.3\ kHz\), which is close to the approximate frequ
 
 An output voltage versus duty cycle plot can be seen in Figure \ref{fig:fig2} and the code that produced it can be seen in [[id:ENG306_Lab3_appendix-A][Appendix A]], it contains both measured and theoretical results. The theoretical plot was obtained by applying duty cycles ranging from 0% to 100% to the equation \(V_o = V_dD\). It can be seen that the measured plot closely follows the theory, there is a noticeable constant negative drop for the measured values which is mainly due to losses in the MOSFET and diode as the theory does not account for this.
 
+
 The voltage ripple at 20% duty cycle was measured to be: $\frac{\Delta V_o}{V_o} = \frac{3.4V}{3.7V} = 0.92$. Lets compare this to the theoretical value.
 \begin{align*}
 \frac{\Delta V_o}{V_o} &= \frac{1}{8}\frac{T_s^2(1-D)}{LC} \\
@@ -82,7 +83,8 @@ This is obviously wrong, the value obtained is close to three orders of magnitud
 \Delta V_o &= \frac{3.4}{8}\frac{\left(15\times10^3\right)^2(1-0.2)}{3\times10^{-3}\cdot100\times10^{-6}} \\
 \Delta V_o &= 0.005\ V
 \end{align*}
-This value is much more reasonable, giving us a voltage ripple of $\frac{\Delta V_o}{V_o} = \frac{0.005}{3.7} = 0.00135$y
+This value is much more reasonable, giving us a voltage ripple of $\frac{\Delta V_o}{V_o} = \frac{0.005}{3.7} = 0.00135$.
+
 ** Doubling Inductance
 #+ATTR_LATEX: :placement [H]
 #+CAPTION: Buck converter oscilloscope plot with two inductors in series. Ch1: inductor voltage, Ch2: inductor current, Ch3: output voltage and Ch4: capacitor current \label{fig:fig3}
@@ -129,6 +131,7 @@ If it was not known what the inductance was it would be possible to calculate it
 #+ATTR_LATEX: :placement [H]
 #+CAPTION: Boost converter oscilloscope plot. Ch1: inductor voltage, Ch2: inductor current \label{fig:fig5}
 [[./Part_3_Boost_Inductor_D_50.PNG]]
+
 
 The inductor waveform for the boost converter is the same as the one for the buck converter. Increasing the duty cycle changes the on time and off time for the inductor voltage and the width of the triangles in the inductor current. It can slightly be seen in Figure \ref{fig:fig5} that the inductor current exhibits the expected triangular waveform, although the magnitude is small. It appears that the inductor is discharging for positive inductor voltages, however this is due to measuring the negative of the current which means that it the inductor is storing energy for positive voltages and releasing it for negative voltages, this aligns with the theory.
 
